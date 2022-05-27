@@ -2,8 +2,7 @@
 
 Inspired by [Rust By Example](https://doc.rust-lang.org/rust-by-example/)
 
-Solana by Example is a collection of runnable examples that illustrate various Rust
-concepts and standard libraries.
+Solana by Example is a collection of runnable examples that illustrate various Solana concepts and its libraries.
 
 Now let's begin!
 
