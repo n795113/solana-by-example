@@ -6,4 +6,4 @@ src = "src"
 title = "Solana By Example"
 
 [output.html]
-git-repository-url = "https://github.com/n795113/rust-by-example"
+git-repository-url = "https://github.com/n795113/solana-by-example"
