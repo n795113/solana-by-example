@@ -2,7 +2,7 @@ The main logic at client:
 - Check the signer has enough SOL to pay the transaction
 - Send and confirm the transaction
 
-Here is the simple Rust client.
+Here is a simple Rust client.
 
 Create a project called `client_rust`
 ```bash
