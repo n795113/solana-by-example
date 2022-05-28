@@ -8,7 +8,7 @@ client_ts/
 ├── src/
 │  └── main.ts
 ├── package.json
-└──tsconfig.json
+└── tsconfig.json
 ```
 
 In `package.json`:
