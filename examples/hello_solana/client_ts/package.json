@@ -1,0 +1,25 @@
+{
+  "name": "hellosolana",
+  "version": "0.0.1",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/n795113/solana-by-example"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@solana/web3.js": "^1.33.0",
+    "mz": "^2.7.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.0.0",
+    "@types/mz": "^2.7.2",
+    "@tsconfig/recommended": "^1.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
+  
