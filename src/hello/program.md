@@ -1,3 +1,5 @@
+# Program
+
 Create a project called `program`
 ```bash
 cargo new program --lib

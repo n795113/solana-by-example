@@ -1,7 +1,4 @@
-The main logic at client:
-- Check the signer has enough SOL to pay the transaction
-- Send and confirm the transaction
-
+# Client (Typescript)
 Here is a simple Typescript client.
 
 Scaffolding:
