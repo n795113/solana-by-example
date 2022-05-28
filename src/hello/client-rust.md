@@ -3,12 +3,12 @@
 Here is a simple Rust client.
 
 Create a project called `client_rust`
-```bash
+```shell
 cargo new client_rust
 ```
 
 In `main.rs`:
-```rust
+```rust,ignore
 use solana_client::rpc_client::RpcClient;
 use solana_sdk::commitment_config::CommitmentConfig;
 use solana_sdk::signer::keypair::read_keypair_file;
@@ -81,7 +81,7 @@ fn main() {
 ```
 
 In `Cargo.toml`:
-```rust
+```rust,ignore
 [package]
 name = "miniclient"
 version = "0.1.0"
@@ -96,22 +96,22 @@ solana-client = "1"
 
 ### Usage
 1. Run local test validator.
-    ```bash
+    ```shell
     solana-test-validator
     ```
 2. Open another terminal tab to run Solana console log where
 "Hello Solana" will print at
-    ```bash
+    ```shell
     solana logs
     ```
 3. Open the third terminal tab to run this rust client
-    ```bash
+    ```shell
     cargo run ../program/target/deploy/helloSolana-keypair.json \
     ~/.config/solana/id.json
     ```
 
 You should see this on the second terminal:
-```text
+```txt
 Streaming transaction logs. Confirmed commitment
 Transaction executed in slot 204888:
   Signature: 3tRkKQFttGMkRvE6LzD1WUFfjxqjCBGFBqiioFPx5TDztYXUdaod3AERdJBRj9jMS7hw9WjYAxcrLoiFgam6gogF

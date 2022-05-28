@@ -1,12 +1,12 @@
 # Program
 
 Create a project called `program`
-```bash
+```shell
 cargo new program --lib
 ```
 
 Paste below code to `Cargo.toml`
-```
+```rust,ignore
 [features]
 # https://docs.solana.com/developing/on-chain-programs/developing-rust#project-layout
 #
@@ -30,7 +30,7 @@ crate-type = ["cdylib", "lib"]
 ```
 
 In `lib.rs`
-```rust
+```rust,ignore
 use solana_program::{
     account_info::AccountInfo,
     entrypoint,
@@ -54,35 +54,35 @@ pub fn process_instruction(
 ```
 
 Compile the program
-```bash
+```shell
 cargo build-bpf
 ```
 
 Run test validator before deploy!
-```bash
+```shell
 solana-test-validator
 ```
 
 Deploy the program
-```bash
+```shell
 solana program deploy target/deploy/hellosolana.so
 ```
 
 If the deploy fails, check if you have enough SOL in your account
 
 Check account balance
-```bash
+```shell
 solana balance
 ```
 
 Airdrop some SOL
-```bash
+```shell
 solana airdrop 1
 ```
 
 If the deploy success, you should see your program ID on the terminal.
 You should see different ID as mine.
-```text
+```txt
 $ solana program deploy target/deploy/hellosolana.so
 Program Id: 4kwL8iV4WuCJv41rxeLqhAVxnuKRrZ9PFUSeBkY78BiW
 ```

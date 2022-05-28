@@ -1,17 +1,18 @@
 # Client (Typescript)
+
 Here is a simple Typescript client.
 
 Scaffolding:
-```
+```txt
 client_ts/
-- src/
-    - main.ts
-- package.json
-- tsconfig.json
+├── src/
+│  └── main.ts
+├── package.json
+└──tsconfig.json
 ```
 
 In `package.json`:
-```json
+```javascript
 {
   "name": "hellosolana",
   "version": "0.0.1",
@@ -38,7 +39,7 @@ In `package.json`:
 }
 ```
 In `tsconfig.json`:
-```json
+```javascript
 {
   "extends": "@tsconfig/recommended/tsconfig.json",
   "ts-node": {
@@ -56,7 +57,7 @@ In `tsconfig.json`:
 }
 ```
 In `src/main.ts`:
-```typescript
+```javascript
 import fs from 'mz/fs';
 import {
   Keypair,
@@ -133,26 +134,26 @@ main().then(
 
 ### Usage
 1. Run local test validator.
-    ```bash
+    ```shell
     solana-test-validator
     ```
 2. Open another terminal tab to run Solana console log where
 "Hello Solana" will print at
-    ```bash
+    ```shell
     solana logs
     ```
 3. Open the third terminal tab and change directory to `client_ts/` to install dependencies
-    ```bash
+    ```shell
     npm install
     ```
 3. Run this rust client
-    ```bash
+    ```shell
     ts-node src/main.ts ../program/target/deploy/helloSolana-keypair.json \
     ~/.config/solana/id.json
     ```
 
 You should see this on the second terminal:
-```text
+```shell
 Streaming transaction logs. Confirmed commitment
 Transaction executed in slot 44967:
   Signature: 8aq8hNW9iTEL5UVfE2Ttwi1v9C382yuvtoLX1h4vsvTtRzYgQxd5psSB7Cnj7qstTWqxHeyTASLA4Kf3x33QNwV
