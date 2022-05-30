@@ -100,7 +100,7 @@ class StateAccount {
 }
 ```
 
-[Check out the full code](https://github.conm/n795113/solana-by-example/examples/counter/client_ts/)
+[Check out the full code](https://github.com/n795113/solana-by-example/tree/main/examples/counter/client_ts)
 
 ### Usage
 
