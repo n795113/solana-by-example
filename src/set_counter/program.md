@@ -18,7 +18,7 @@ match ix {
 state.serialize(&mut &mut account.data.borrow_mut()[..])?;
 ```
 
-Not forget to rename the variable name of instruction data
+Don't forget to rename the variable name of instruction data
 ```rust, ignore
 pub fn process_instruction(
     program_id: &Pubkey,
