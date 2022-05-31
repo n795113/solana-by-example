@@ -111,6 +111,31 @@ ts-node src/main.ts ../program/target/deploy/counter-keypair.json \
 
 The counter should increases 1 every time this client runs.
 
+This is the result that run the client 2 times:
+```text
+$ ts-node src/main.ts ../program/target/deploy/counter-keypair.json \
+~/.config/solana/id.json
+
+Payer:  46hytJBhguswo6S8fCcVtR85HEnb9nd1hwMxFWYnSHXc
+Program ID:  GuoMVjGXrxDvJaKuRfuKZsiwSHrfvfXg2YH7DTxGqdQe
+Creating account: CzZRqZHR4ZEcoyJs61WRFJZP2iX2siPHwVVMGwu3iFdt
+Sending the transaction to Counter Program...
+Address: CzZRqZHR4ZEcoyJs61WRFJZP2iX2siPHwVVMGwu3iFdt counter: 1
+Success
+$ ts-node src/main.ts ../program/target/deploy/counter-keypair.json \
+~/.config/solana/id.json
+
+Payer:  46hytJBhguswo6S8fCcVtR85HEnb9nd1hwMxFWYnSHXc
+Program ID:  GuoMVjGXrxDvJaKuRfuKZsiwSHrfvfXg2YH7DTxGqdQe
+Sending the transaction to Counter Program...
+Address: CzZRqZHR4ZEcoyJs61WRFJZP2iX2siPHwVVMGwu3iFdt counter: 2
+Success
+```
+
+We can see at the first time, the client create a new account, and its counter is 1.
+At the second time, since the account is already existed, the client doesn't create an account again. 
+It just take the existed account, and add its counter to 2.
+
 ### Activity
 
 What will happen if the seed changes every time? (now it is hard coded as "solana-by-example")
