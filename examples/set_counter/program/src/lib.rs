@@ -37,8 +37,8 @@ pub fn process_instruction(
     let mut state = State::try_from_slice(&account.data.borrow())?;
     let ix = Instruction::unpack(instruction_data)?;
     match ix {
-        Instruction::Increament => state.counter += 1,
-        Instruction::Decreament => state.counter -= 1,
+        Instruction::Increment => state.counter += 1,
+        Instruction::Decrement => state.counter -= 1,
         Instruction::Set(val) => state.counter = val
     }
     state.serialize(&mut &mut account.data.borrow_mut()[..])?;
