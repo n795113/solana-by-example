@@ -15,3 +15,7 @@
     - [Instructions](./set_counter/instructions.md)
     - [Program](./set_counter/program.md)
     - [Client (Typescript)](./set_counter/client_ts.md)
+- [Anchor](./anchor.md)
+    - [Init Project](./anchor/init-project.md)
+    - [Implement Set Counter Logic](./anchor/implement-set-counter-logic.md)
+    - [Test](./anchor/test.md)
