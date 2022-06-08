@@ -4,8 +4,8 @@ The only difference from the last client example is that
 we will send a non-empty array of instruction data this time.
 
 Recap our instruction codes:
-- 0: increament
-- 1: decreament
+- 0: increment
+- 1: decrement
 - 2: set value
 
 If the given code is 2 (set value), a user should also pass an u32 number in the other
@@ -22,7 +22,7 @@ instructionData.writeUint8(instructionCode, 0);
 instructionData.writeUInt32LE(inputValue, 1);
 ```
 Our program will ignore the last 4 bytes if instruction code is 0 or 1 so I just alloc 5 bytes
-for every cases. You can alloc only 1 byte on cases `increament`, and `decreament` of course. The 
+for every cases. You can alloc only 1 byte on cases `increment`, and `decrement` of course. The 
 program should works the same.
 
 A user should pass the instruction and value if the instruction is "set value". 
@@ -37,10 +37,10 @@ const instruct = args[0];
 var instructionCode = 0;
 var inputValue = 0;
 switch (instruct) {
-    case "increament": 
+    case "increment": 
         instructionCode = 0;
         break;
-    case "decreament":
+    case "decrement":
         instructionCode = 1;
         break;
     case "set":
@@ -56,7 +56,7 @@ Just a simple example without invalid arguement handling. You can do better than
 [Check out the full code](https://github.com/n795113/solana-by-example/tree/main/examples/set_counter/client_ts)
 
 ### Usage
-Let's set the counter to some value, then play with the `increament`, and `descreament` to check if
+Let's set the counter to some value, then play with the `increment`, and `decrement` to check if
 they work properly. Finally, we set the counter again to check `set value` truely works.
 
 ```text
@@ -67,13 +67,13 @@ Program ID:  5RKoJE1ZwEnvGjhMG9mLgz8ARFEqHV6JfectxedmM7Rg
 Sending the transaction...
 Address: H1JS1dZ4do8t71XUs5g3eVjcNYLdgZhzFqiHASSPC5CE counter: 100
 Success
-$ ts-node src/main.ts increament ../program/target/deploy/setcounter-keypair.json ~/.config/solana/id.json
+$ ts-node src/main.ts increment ../program/target/deploy/setcounter-keypair.json ~/.config/solana/id.json
 Payer:  46hytJBhguswo6S8fCcVtR85HEnb9nd1hwMxFWYnSHXc
 Program ID:  5RKoJE1ZwEnvGjhMG9mLgz8ARFEqHV6JfectxedmM7Rg
 Sending the transaction...
 Address: H1JS1dZ4do8t71XUs5g3eVjcNYLdgZhzFqiHASSPC5CE counter: 101
 Success
-$ ts-node src/main.ts decreament ../program/target/deploy/setcounter-keypair.json ~/.config/solana/id.json
+$ ts-node src/main.ts decrement ../program/target/deploy/setcounter-keypair.json ~/.config/solana/id.json
 Payer:  46hytJBhguswo6S8fCcVtR85HEnb9nd1hwMxFWYnSHXc
 Program ID:  5RKoJE1ZwEnvGjhMG9mLgz8ARFEqHV6JfectxedmM7Rg
 Sending the transaction...

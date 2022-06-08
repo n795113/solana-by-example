@@ -15,8 +15,8 @@ In `instructions.rs`:
 ```rust, ignore
 #[derive(Debug)]
 pub Enum Instruction {
-    Increament,
-    Decreament,
+    Increment,
+    Decrement,
     SetValue(u32)
 }
 ```
@@ -25,8 +25,8 @@ If you are not familar with `Enum` in Rust, please check [this](https://doc.rust
 
 Purpose: when an instruction data (`&[u8]`) be passed into our program, we are gonna to resolve (unpack) it 
 into ethier above 3 instructions:
-- `Instruction::Increament`,
-- `Instruction::Decreament`,
+- `Instruction::Increment`,
+- `Instruction::Decrement`,
 - `Instruction::SetValue(val)`
 
 The program will then match the instruction to do different operations.
@@ -34,8 +34,8 @@ The program will then match the instruction to do different operations.
 ### Unpack
 Let's implement a method for unpacking (or say deserializing) the given isntruction data.
 In this example, we gonna to use the first byte to represent the instruction code:
-- 0: increament
-- 1: decreament
+- 0: Increment
+- 1: Decrement
 - 2: set value
 
 If the given code is 2 (set value), a user should also pass an u32 number in the other
@@ -52,8 +52,8 @@ impl Instruction {
         let (&ix_code, rest) = input.split_first().ok_or(ProgramError::InvalidInstructionData)?;
 
         match ix {
-            0 => Ok(Instruction::Increament),
-            1 => Ok(Instruction::Decreament),
+            0 => Ok(Instruction::Increment),
+            1 => Ok(Instruction::Decrement),
             2 => {
                 // an u32 value should occupy 4 bytes
                 if rest.len() != 4 {

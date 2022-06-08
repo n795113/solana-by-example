@@ -31,10 +31,10 @@ async function main() {
   var instructionCode = 0;
   var inputValue = 0;
   switch (instruct) {
-    case "increament": 
+    case "increment": 
       instructionCode = 0;
       break;
-    case "decreament":
+    case "decrement":
       instructionCode = 1;
       break;
     case "set":
