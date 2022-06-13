@@ -19,3 +19,4 @@
     - [Init Project](./anchor/init-project.md)
     - [Implement Set Counter Logic](./anchor/implement-set-counter-logic.md)
     - [Test](./anchor/test.md)
+    - [Integrate With Wallet Adaptor](./anchor/integrate-with-wallet-adaptor.md)
