@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Client (Rust) - Solana By Example</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../hello.html"><strong aria-hidden="true">1.</strong> Hello Solana</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../hello/program.html"><strong aria-hidden="true">1.1.</strong> Program</a></li><li class="chapter-item expanded "><a href="../hello/client-rust.html" class="active"><strong aria-hidden="true">1.2.</strong> Client (Rust)</a></li><li class="chapter-item expanded "><a href="../hello/client-ts.html"><strong aria-hidden="true">1.3.</strong> Client (Typescript)</a></li><li class="chapter-item expanded "><a href="../hello/explain.html"><strong aria-hidden="true">1.4.</strong> Explain</a></li></ol></li><li class="chapter-item expanded "><a href="../counter.html"><strong aria-hidden="true">2.</strong> Counter</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../counter/pda.html"><strong aria-hidden="true">2.1.</strong> Program Derive Address (PDA)</a></li><li class="chapter-item expanded "><a href="../counter/program.html"><strong aria-hidden="true">2.2.</strong> Program</a></li><li class="chapter-item expanded "><a href="../counter/client_ts.html"><strong aria-hidden="true">2.3.</strong> Client (Typescript)</a></li></ol></li><li class="chapter-item expanded "><a href="../set_counter.html"><strong aria-hidden="true">3.</strong> Set Counter</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../set_counter/instructions.html"><strong aria-hidden="true">3.1.</strong> Instructions</a></li><li class="chapter-item expanded "><a href="../set_counter/program.html"><strong aria-hidden="true">3.2.</strong> Program</a></li><li class="chapter-item expanded "><a href="../set_counter/client_ts.html"><strong aria-hidden="true">3.3.</strong> Client (Typescript)</a></li></ol></li><li class="chapter-item expanded "><a href="../anchor.html"><strong aria-hidden="true">4.</strong> Anchor</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../anchor/init-project.html"><strong aria-hidden="true">4.1.</strong> Init Project</a></li><li class="chapter-item expanded "><a href="../anchor/implement-set-counter-logic.html"><strong aria-hidden="true">4.2.</strong> Implement Set Counter Logic</a></li><li class="chapter-item expanded "><a href="../anchor/test.html"><strong aria-hidden="true">4.3.</strong> Test</a></li><li class="chapter-item expanded "><a href="../anchor/integrate-with-wallet-adaptor.html"><strong aria-hidden="true">4.4.</strong> Integrate With Wallet Adaptor</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Solana By Example</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/n795113/solana-by-example" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="client-rust"><a class="header" href="#client-rust">Client (Rust)</a></h1>
+<p>Here is a simple Rust client.</p>
+<p>Create a project called <code>client_rust</code></p>
+<pre><code class="language-shell">cargo new client_rust
+</code></pre>
+<p>In <code>main.rs</code>:</p>
+<pre><code class="language-rust ignore">use solana_client::rpc_client::RpcClient;
+use solana_sdk::commitment_config::CommitmentConfig;
+use solana_sdk::signer::keypair::read_keypair_file;
+use solana_sdk::instruction::Instruction;
+use solana_sdk::message::Message;
+use solana_sdk::signature::Signer;
+use solana_sdk::transaction::Transaction;
+
+fn main() {
+    let args = std::env::args().collect::&lt;Vec&lt;_&gt;&gt;();
+    if args.len() != 3 {
+        eprintln!(
+            &quot;usage: {} &lt;path to program keypair&gt; &lt;path to signer keypair&gt;&quot;,
+            args[0],
+        );
+        std::process::exit(-1);
+    }
+    let program_keypair_path = &amp;args[1];
+    let signer_keypair_path = &amp;args[2];
+
+    // Establish connection
+    let url = &quot;http://localhost:8899&quot;.to_string();
+    let commitment_config = CommitmentConfig::processed();
+    let connection = RpcClient::new_with_commitment(url, commitment_config);
+
+    // Get signer's Pubkey
+    let payer = read_keypair_file(signer_keypair_path).map_err(|e| {
+        panic!(&quot;failed to read keypair file ({}): ({})&quot;, signer_keypair_path, e);
+    }).unwrap();
+
+    // Get program's Pubkey (Program ID)
+    let program_keypair = read_keypair_file(program_keypair_path).map_err(|e| {
+        panic!(
+            &quot;failed to read program keypair file ({}): ({})&quot;,
+            program_keypair_path, e
+        );
+    }).unwrap();
+
+    // This will fail if the program is not deployed
+    let program_info = connection
+        .get_account(&amp;program_keypair.pubkey())
+        .expect(&quot;Fail to find the program&quot;);
+
+    // On Solana every data are stored in Accounts
+    // There are seversal types of accounts which we will cover later
+    // So programs are stored as &quot;binary&quot; codes in &quot;executable&quot; accounts
+    if !program_info.executable {
+        panic!(
+            &quot;program with keypair ({}) is not executable&quot;,
+            program_keypair_path
+        );
+    }
+
+    // Make and send a transaction
+    // Take this step as you send a HTTP request in web2
+    let instruction = Instruction::new_with_bytes(
+        program_keypair.pubkey(),
+        &amp;[],
+        vec![],
+    );
+    let message = Message::new(&amp;[instruction], Some(&amp;payer.pubkey()));
+    let transaction = Transaction::new(
+        &amp;[&amp;payer],
+        message, 
+        connection.get_recent_blockhash().unwrap().0
+    );
+
+    connection.send_and_confirm_transaction(&amp;transaction);
+}
+</code></pre>
+<p>In <code>Cargo.toml</code>:</p>
+<pre><code class="language-rust ignore">[package]
+name = &quot;miniclient&quot;
+version = &quot;0.1.0&quot;
+edition = &quot;2021&quot;
+
+<span class="boring">See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+</span>
+[dependencies]
+solana-sdk = &quot;1&quot;
+solana-client = &quot;1&quot;
+</code></pre>
+<h3 id="usage"><a class="header" href="#usage">Usage</a></h3>
+<ol>
+<li>Run local test validator.
+<pre><code class="language-shell">solana-test-validator
+</code></pre>
+</li>
+<li>Open another terminal tab to run Solana console log where
+&quot;Hello Solana&quot; will print at
+<pre><code class="language-shell">solana logs
+</code></pre>
+</li>
+<li>Open the third terminal tab to run this rust client
+<pre><code class="language-shell">cargo run ../program/target/deploy/helloSolana-keypair.json \
+~/.config/solana/id.json
+</code></pre>
+</li>
+</ol>
+<p>You should see this on the second terminal:</p>
+<pre><code class="language-txt">Streaming transaction logs. Confirmed commitment
+Transaction executed in slot 204888:
+  Signature: 3tRkKQFttGMkRvE6LzD1WUFfjxqjCBGFBqiioFPx5TDztYXUdaod3AERdJBRj9jMS7hw9WjYAxcrLoiFgam6gogF
+  Status: Ok
+  Log Messages:
+    Program 4kwL8iV4WuCJv41rxeLqhAVxnuKRrZ9PFUSeBkY78BiW invoke [1]
+    Program log: Hello Solana
+    Program 4kwL8iV4WuCJv41rxeLqhAVxnuKRrZ9PFUSeBkY78BiW consumed 197 of 1400000 compute units
+    Program 4kwL8iV4WuCJv41rxeLqhAVxnuKRrZ9PFUSeBkY78BiW success
+</code></pre>
+<p>Congrat! we already finished our first progarm on Solana!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../hello/program.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../hello/client-ts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../hello/program.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../hello/client-ts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

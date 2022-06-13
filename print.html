@@ -1,0 +1,1367 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Solana By Example</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded "><a href="hello.html"><strong aria-hidden="true">1.</strong> Hello Solana</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="hello/program.html"><strong aria-hidden="true">1.1.</strong> Program</a></li><li class="chapter-item expanded "><a href="hello/client-rust.html"><strong aria-hidden="true">1.2.</strong> Client (Rust)</a></li><li class="chapter-item expanded "><a href="hello/client-ts.html"><strong aria-hidden="true">1.3.</strong> Client (Typescript)</a></li><li class="chapter-item expanded "><a href="hello/explain.html"><strong aria-hidden="true">1.4.</strong> Explain</a></li></ol></li><li class="chapter-item expanded "><a href="counter.html"><strong aria-hidden="true">2.</strong> Counter</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="counter/pda.html"><strong aria-hidden="true">2.1.</strong> Program Derive Address (PDA)</a></li><li class="chapter-item expanded "><a href="counter/program.html"><strong aria-hidden="true">2.2.</strong> Program</a></li><li class="chapter-item expanded "><a href="counter/client_ts.html"><strong aria-hidden="true">2.3.</strong> Client (Typescript)</a></li></ol></li><li class="chapter-item expanded "><a href="set_counter.html"><strong aria-hidden="true">3.</strong> Set Counter</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="set_counter/instructions.html"><strong aria-hidden="true">3.1.</strong> Instructions</a></li><li class="chapter-item expanded "><a href="set_counter/program.html"><strong aria-hidden="true">3.2.</strong> Program</a></li><li class="chapter-item expanded "><a href="set_counter/client_ts.html"><strong aria-hidden="true">3.3.</strong> Client (Typescript)</a></li></ol></li><li class="chapter-item expanded "><a href="anchor.html"><strong aria-hidden="true">4.</strong> Anchor</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="anchor/init-project.html"><strong aria-hidden="true">4.1.</strong> Init Project</a></li><li class="chapter-item expanded "><a href="anchor/implement-set-counter-logic.html"><strong aria-hidden="true">4.2.</strong> Implement Set Counter Logic</a></li><li class="chapter-item expanded "><a href="anchor/test.html"><strong aria-hidden="true">4.3.</strong> Test</a></li><li class="chapter-item expanded "><a href="anchor/integrate-with-wallet-adaptor.html"><strong aria-hidden="true">4.4.</strong> Integrate With Wallet Adaptor</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Solana By Example</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/n795113/solana-by-example" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="solana-by-example"><a class="header" href="#solana-by-example">Solana by Example</a></h1>
+<p>Inspired by <a href="https://doc.rust-lang.org/rust-by-example/">Rust By Example</a></p>
+<p>Solana by Example is a collection of runnable examples that illustrate various Solana concepts and its libraries.</p>
+<p>Now let's begin!</p>
+<ul>
+<li>
+<p><a href="hello.html">Hello Solana</a> - Learn about how a client interact with a Solana program.</p>
+</li>
+<li>
+<p><a href="counter.html">Counter</a> - Learn about how to manage &quot;state&quot; on Solana.</p>
+</li>
+<li>
+<p><a href="set_counter.html">Set Counter</a> - Multiple instructions in one program.</p>
+</li>
+<li>
+<p><a href="anchor.html">Anchor</a></p>
+</li>
+<li>
+<p><a href="blog.html">WIP Blog</a> - Learn about how to store text on Solana.</p>
+</li>
+<li>
+<p><a href="chat_room.html">WIP Chat Room</a> - build a chat room on Solana.</p>
+</li>
+<li>
+<p><a href="swap.html">WIP Swap Program</a> - Learn about SPL token, and associated account.</p>
+</li>
+<li>
+<p><a href="nft.html">WIP NFT Program</a> - Learn about how to create and manage metadata of NFTs.</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hello-solana"><a class="header" href="#hello-solana">Hello Solana</a></h1>
+<p>This section cover:</p>
+<ul>
+<li>Get the idea of client and program.</li>
+<li>How to deploy a Solana program</li>
+<li>Use a client to interact with the program</li>
+</ul>
+<p>We will make a simple program that only log message: &quot;Hello Solana&quot; without framworks.
+And we will demo how to use Typescript and Rust client to interact with the program.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="program"><a class="header" href="#program">Program</a></h1>
+<p>Create a project called <code>program</code></p>
+<pre><code class="language-shell">cargo new program --lib
+</code></pre>
+<p>Paste below code to <code>Cargo.toml</code></p>
+<pre><code class="language-rust ignore">[features]
+<span class="boring">https://docs.solana.com/developing/on-chain-programs/developing-rust#project-layout
+</span><span class="boring">
+</span><span class="boring">When toggled on this feature will cause the crate to not compile a
+</span><span class="boring">bpf entrypoint.
+</span><span class="boring">
+</span><span class="boring">See the corresponding `#[cfg(not(feature = &quot;exclude_entrypoint&quot;))]`
+</span><span class="boring">in lib.rs. This is needed so that other Solana programs can import
+</span><span class="boring">helper functions from this library without causing symbol conflicts
+</span><span class="boring">with our entrypoint.
+</span>exclude_entrypoint = []
+
+[dependencies]
+solana-program = &quot;1&quot;
+
+[lib]
+<span class="boring">This is the name of the compiled file
+</span><span class="boring">For this example, the compiled file path is `target/deploy/hellosolana.so`
+</span>name = &quot;hellosolana&quot;
+crate-type = [&quot;cdylib&quot;, &quot;lib&quot;]
+</code></pre>
+<p>In <code>lib.rs</code></p>
+<pre><code class="language-rust ignore">use solana_program::{
+    account_info::AccountInfo,
+    entrypoint,
+    pubkey::Pubkey,
+    msg
+};
+
+// Declare the programs entrypoint. The entrypoint is the function
+// that will get run when the program is executed.
+#[cfg(not(feature = &quot;exclude_entrypoint&quot;))]
+entrypoint!(process_instruction);
+
+pub fn process_instruction(
+    _program_id: &amp;Pubkey,
+    _accounts: &amp;[AccountInfo],
+    _instruction_data: &amp;[u8],
+) -&gt; entrypoint::ProgramResult {
+    msg!(&quot;Hello Solana&quot;);
+    Ok(())
+}
+</code></pre>
+<p>Compile the program</p>
+<pre><code class="language-shell">cargo build-bpf
+</code></pre>
+<p>Run test validator before deploy!</p>
+<pre><code class="language-shell">solana-test-validator
+</code></pre>
+<p>Deploy the program</p>
+<pre><code class="language-shell">solana program deploy target/deploy/hellosolana.so
+</code></pre>
+<p>If the deploy fails, check if you have enough SOL in your account</p>
+<p>Check account balance</p>
+<pre><code class="language-shell">solana balance
+</code></pre>
+<p>Airdrop some SOL</p>
+<pre><code class="language-shell">solana airdrop 1
+</code></pre>
+<p>If the deploy success, you should see your program ID on the terminal.
+You should see different ID as mine.</p>
+<pre><code class="language-txt">$ solana program deploy target/deploy/hellosolana.so
+Program Id: 4kwL8iV4WuCJv41rxeLqhAVxnuKRrZ9PFUSeBkY78BiW
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="client-rust"><a class="header" href="#client-rust">Client (Rust)</a></h1>
+<p>Here is a simple Rust client.</p>
+<p>Create a project called <code>client_rust</code></p>
+<pre><code class="language-shell">cargo new client_rust
+</code></pre>
+<p>In <code>main.rs</code>:</p>
+<pre><code class="language-rust ignore">use solana_client::rpc_client::RpcClient;
+use solana_sdk::commitment_config::CommitmentConfig;
+use solana_sdk::signer::keypair::read_keypair_file;
+use solana_sdk::instruction::Instruction;
+use solana_sdk::message::Message;
+use solana_sdk::signature::Signer;
+use solana_sdk::transaction::Transaction;
+
+fn main() {
+    let args = std::env::args().collect::&lt;Vec&lt;_&gt;&gt;();
+    if args.len() != 3 {
+        eprintln!(
+            &quot;usage: {} &lt;path to program keypair&gt; &lt;path to signer keypair&gt;&quot;,
+            args[0],
+        );
+        std::process::exit(-1);
+    }
+    let program_keypair_path = &amp;args[1];
+    let signer_keypair_path = &amp;args[2];
+
+    // Establish connection
+    let url = &quot;http://localhost:8899&quot;.to_string();
+    let commitment_config = CommitmentConfig::processed();
+    let connection = RpcClient::new_with_commitment(url, commitment_config);
+
+    // Get signer's Pubkey
+    let payer = read_keypair_file(signer_keypair_path).map_err(|e| {
+        panic!(&quot;failed to read keypair file ({}): ({})&quot;, signer_keypair_path, e);
+    }).unwrap();
+
+    // Get program's Pubkey (Program ID)
+    let program_keypair = read_keypair_file(program_keypair_path).map_err(|e| {
+        panic!(
+            &quot;failed to read program keypair file ({}): ({})&quot;,
+            program_keypair_path, e
+        );
+    }).unwrap();
+
+    // This will fail if the program is not deployed
+    let program_info = connection
+        .get_account(&amp;program_keypair.pubkey())
+        .expect(&quot;Fail to find the program&quot;);
+
+    // On Solana every data are stored in Accounts
+    // There are seversal types of accounts which we will cover later
+    // So programs are stored as &quot;binary&quot; codes in &quot;executable&quot; accounts
+    if !program_info.executable {
+        panic!(
+            &quot;program with keypair ({}) is not executable&quot;,
+            program_keypair_path
+        );
+    }
+
+    // Make and send a transaction
+    // Take this step as you send a HTTP request in web2
+    let instruction = Instruction::new_with_bytes(
+        program_keypair.pubkey(),
+        &amp;[],
+        vec![],
+    );
+    let message = Message::new(&amp;[instruction], Some(&amp;payer.pubkey()));
+    let transaction = Transaction::new(
+        &amp;[&amp;payer],
+        message, 
+        connection.get_recent_blockhash().unwrap().0
+    );
+
+    connection.send_and_confirm_transaction(&amp;transaction);
+}
+</code></pre>
+<p>In <code>Cargo.toml</code>:</p>
+<pre><code class="language-rust ignore">[package]
+name = &quot;miniclient&quot;
+version = &quot;0.1.0&quot;
+edition = &quot;2021&quot;
+
+<span class="boring">See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+</span>
+[dependencies]
+solana-sdk = &quot;1&quot;
+solana-client = &quot;1&quot;
+</code></pre>
+<h3 id="usage"><a class="header" href="#usage">Usage</a></h3>
+<ol>
+<li>Run local test validator.
+<pre><code class="language-shell">solana-test-validator
+</code></pre>
+</li>
+<li>Open another terminal tab to run Solana console log where
+&quot;Hello Solana&quot; will print at
+<pre><code class="language-shell">solana logs
+</code></pre>
+</li>
+<li>Open the third terminal tab to run this rust client
+<pre><code class="language-shell">cargo run ../program/target/deploy/helloSolana-keypair.json \
+~/.config/solana/id.json
+</code></pre>
+</li>
+</ol>
+<p>You should see this on the second terminal:</p>
+<pre><code class="language-txt">Streaming transaction logs. Confirmed commitment
+Transaction executed in slot 204888:
+  Signature: 3tRkKQFttGMkRvE6LzD1WUFfjxqjCBGFBqiioFPx5TDztYXUdaod3AERdJBRj9jMS7hw9WjYAxcrLoiFgam6gogF
+  Status: Ok
+  Log Messages:
+    Program 4kwL8iV4WuCJv41rxeLqhAVxnuKRrZ9PFUSeBkY78BiW invoke [1]
+    Program log: Hello Solana
+    Program 4kwL8iV4WuCJv41rxeLqhAVxnuKRrZ9PFUSeBkY78BiW consumed 197 of 1400000 compute units
+    Program 4kwL8iV4WuCJv41rxeLqhAVxnuKRrZ9PFUSeBkY78BiW success
+</code></pre>
+<p>Congrat! we already finished our first progarm on Solana!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="client-typescript"><a class="header" href="#client-typescript">Client (Typescript)</a></h1>
+<p>Here is a simple Typescript client.</p>
+<p>Scaffolding:</p>
+<pre><code class="language-txt">client_ts/
+├── src/
+│  └── main.ts
+├── package.json
+└── tsconfig.json
+</code></pre>
+<p>In <code>package.json</code>:</p>
+<pre><code class="language-javascript">{
+  &quot;name&quot;: &quot;hellosolana&quot;,
+  &quot;version&quot;: &quot;0.0.1&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;repository&quot;: {
+    &quot;type&quot;: &quot;git&quot;,
+    &quot;url&quot;: &quot;https://github.com/n795113/solana-by-example&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;dependencies&quot;: {
+    &quot;@solana/web3.js&quot;: &quot;^1.33.0&quot;,
+    &quot;mz&quot;: &quot;^2.7.0&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;ts-node&quot;: &quot;^10.0.0&quot;,
+    &quot;@types/mz&quot;: &quot;^2.7.2&quot;,
+    &quot;@tsconfig/recommended&quot;: &quot;^1.0.1&quot;
+  },
+  &quot;engines&quot;: {
+    &quot;node&quot;: &quot;&gt;=14.0.0&quot;
+  }
+}
+</code></pre>
+<p>In <code>tsconfig.json</code>:</p>
+<pre><code class="language-javascript">{
+  &quot;extends&quot;: &quot;@tsconfig/recommended/tsconfig.json&quot;,
+  &quot;ts-node&quot;: {
+    &quot;compilerOptions&quot;: {
+      &quot;module&quot;: &quot;commonjs&quot;
+    }
+  },
+  &quot;compilerOptions&quot;: {
+    &quot;declaration&quot;: true,
+    &quot;moduleResolution&quot;: &quot;node&quot;,
+    &quot;module&quot;: &quot;es2015&quot;
+  },
+  &quot;include&quot;: [&quot;src/client/**/*&quot;],
+  &quot;exclude&quot;: [&quot;node_modules&quot;]
+}
+</code></pre>
+<p>In <code>src/main.ts</code>:</p>
+<pre><code class="language-javascript">import fs from 'mz/fs';
+import {
+  Keypair,
+  Connection,
+  TransactionInstruction,
+  Transaction,
+  sendAndConfirmTransaction,
+} from '@solana/web3.js';
+
+const RPCURL = 'http://127.0.0.1:8899';
+
+async function main() {
+  const args = process.argv.slice(2);
+  if (args.length != 2) {
+    console.log(&quot;Please pass program and payer's keypair paths!&quot;);
+    process.exit(1);
+  }
+  const program_keypair_path = args[0];
+  const payer_keypair_path = args[1];
+
+  console.log(&quot;Let's say hello to Solana...&quot;);
+
+  // Establish connection to the cluster
+  const connection = new Connection(RPCURL, 'confirmed');
+  const version = await connection.getVersion();
+  console.log('Connection to cluster established:', RPCURL, version);
+
+  // Get the payer to pay this transaction
+  var secretKeyString = await fs.readFile(payer_keypair_path, {encoding: 'utf8'});
+  var secretKey = Uint8Array.from(JSON.parse(secretKeyString));
+  // Keypair is an object that has 2 properties: publicKey, secretKey.
+  // Both of them are bytes so if we want to print them as strings,
+  // we can encode them into Base58 by calling toBase58() method. 
+  const payerKeypair =  Keypair.fromSecretKey(secretKey);
+  console.log(&quot;Payer: &quot;, payerKeypair.publicKey.toBase58());
+
+  // Get the program's pubkey (ID)
+  secretKeyString = await fs.readFile(program_keypair_path, {encoding: 'utf8'});
+  secretKey = Uint8Array.from(JSON.parse(secretKeyString));
+  const programKeypair = Keypair.fromSecretKey(secretKey);
+  const programId = programKeypair.publicKey
+  console.log(&quot;Program ID: &quot;, programId.toBase58());
+
+  // Invoke our Hello Solana Program
+  console.log('Sending the transaction...');
+  const instruction = new TransactionInstruction({
+    // This field accepts an array of accounts
+    // However, our program doesn't use accounts' data in this example
+    // so just pass an empty array.
+    keys: [],
+    programId,
+    // Our program doesn't use instruction data in this example
+    // so just pass an empty byte array
+    data: Buffer.alloc(0),
+  });
+  await sendAndConfirmTransaction(
+    connection,
+    new Transaction().add(instruction),
+    [payerKeypair],
+  );
+
+  console.log('Success');
+}
+
+main().then(
+    () =&gt; process.exit(),
+    err =&gt; {
+      console.error(err);
+      process.exit(-1);
+    },
+);
+</code></pre>
+<h3 id="usage-1"><a class="header" href="#usage-1">Usage</a></h3>
+<ol>
+<li>Run local test validator.
+<pre><code class="language-shell">solana-test-validator
+</code></pre>
+</li>
+<li>Open another terminal tab to run Solana console log where
+&quot;Hello Solana&quot; will print at
+<pre><code class="language-shell">solana logs
+</code></pre>
+</li>
+<li>Open the third terminal tab and change directory to <code>client_ts/</code> to install dependencies
+<pre><code class="language-shell">npm install
+</code></pre>
+</li>
+<li>Run this rust client
+<pre><code class="language-shell">ts-node src/main.ts ../program/target/deploy/helloSolana-keypair.json \
+~/.config/solana/id.json
+</code></pre>
+</li>
+</ol>
+<p>You should see this on the second terminal:</p>
+<pre><code class="language-shell">Streaming transaction logs. Confirmed commitment
+Transaction executed in slot 44967:
+  Signature: 8aq8hNW9iTEL5UVfE2Ttwi1v9C382yuvtoLX1h4vsvTtRzYgQxd5psSB7Cnj7qstTWqxHeyTASLA4Kf3x33QNwV
+  Status: Ok
+  Log Messages:
+    Program 4kwL8iV4WuCJv41rxeLqhAVxnuKRrZ9PFUSeBkY78BiW invoke [1]
+    Program log: Hello Solana
+    Program 4kwL8iV4WuCJv41rxeLqhAVxnuKRrZ9PFUSeBkY78BiW consumed 197 of 1400000 compute units
+    Program 4kwL8iV4WuCJv41rxeLqhAVxnuKRrZ9PFUSeBkY78BiW success
+</code></pre>
+<p>Congrat! we already finished our first progarm on Solana!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="explain"><a class="header" href="#explain">Explain</a></h1>
+<h3 id="client--program"><a class="header" href="#client--program">Client &amp; Program</a></h3>
+<p>&quot;Program&quot; is &quot;Smart Contract&quot; in Solana. It just terminology difference.</p>
+<p>If you are a web3 newbie, you may take programs (smart contract) as AWS Lambda functions.</p>
+<p>Just like client-server model that we are familiar in web2, 
+we develop and deploy prgrams online then use clients to interact
+with them. it can be any kind of client, such as a typescript client, or a Rust client.</p>
+<h3 id="account"><a class="header" href="#account">Account</a></h3>
+<p>Accounts are just buffers that store serialized binary on chain. Every data on Solana are stored in accounts.</p>
+<h3 id="program-1"><a class="header" href="#program-1">Program</a></h3>
+<p>Program are not special, they are also data, stored in accounts. These accounts are 
+flagged as executable and ownership is transferred to an ebpf loader program.</p>
+<p>Programs on Solana are stateless which means we need to pass states from other places
+which you may already guess: other accounts.</p>
+<h3 id="states"><a class="header" href="#states">States</a></h3>
+<p>Oppisite to programs, states are stored in non-executable accounts which can be 2 types:</p>
+<ul>
+<li>writable</li>
+<li>read-only</li>
+</ul>
+<p>You may think state accounts as rows in database. We will introduce how to
+modify and query them in a later example.</p>
+<h3 id="resources"><a class="header" href="#resources">Resources</a></h3>
+<p><a href="https://2501babe.github.io/posts/solana101.html">ok so what the fuck is the deal with solana anyway</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="counter"><a class="header" href="#counter">Counter</a></h1>
+<p>In this example, we will implement a counter on Solana. 
+When a user invokes the program the counter will add 1.</p>
+<p>Concepts that we will learn about:</p>
+<ul>
+<li>Program Derive Address (PDA)</li>
+<li>Serialize &amp; deserialize data</li>
+</ul>
+<p>This example was originally from the program, <a href="https://github.com/solana-labs/example-helloworld">example-helloworld</a>, of <a href="https://github.com/solana-labs">Solana-labs</a>. I rename it since I think its core function is a counter, which is a good example to demostrate how state data stored on Solana.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="program-derive-address-pda"><a class="header" href="#program-derive-address-pda">Program Derive Address (PDA)</a></h1>
+<p>There 2 properties of an account:</p>
+<ul>
+<li>owner: who can modify the account</li>
+<li>authority: who can sign the account</li>
+</ul>
+<p>PDAs are just specific accounts that have no private keys their authorities are belongs to programs.</p>
+<p>Here is a good image from <a href="https://solanacookbook.com/core-concepts/pdas.html#facts">Solana Cookbook</a> to show the difference between <strong>ownership</strong> and <strong>authority</strong>:
+<img src="https://solanacookbook.com/assets/account-matrix.c3a79f80.png" alt="" /></p>
+<p>In this example. We will use a PDA to store the counter value!</p>
+<h3 id="why-pda"><a class="header" href="#why-pda">Why PDA</a></h3>
+<p>PDAs serve as the foundation for <a href="https://docs.solana.com/developing/programming-model/calling-between-programs#cross-program-invocations">Cross-Program Invocation</a>, which allows Solana apps to be composable with one another.</p>
+<h3 id="rent"><a class="header" href="#rent">Rent</a></h3>
+<p>Accounts need to be PAID to live on the chain. 
+The fee is depends on how much data an account holds, and how long it will live.
+We will see how to count the fee in this example.</p>
+<p><a href="https://docs.solana.com/implemented-proposals/rent">More detail about rent from official doc</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="program-2"><a class="header" href="#program-2">Program</a></h1>
+<p>Again, this example is originally from Solana-labs. I just renamed some parts of it so it makes more sence to me. Feel free to check out <a href="https://github.com/solana-labs/example-helloworld">the origin repo</a>.</p>
+<p>First, let's declare a struct, which represents the account to hold the counter:</p>
+<pre><code class="language-rust  ignore">use borsh::{BorshDeserialize, BorshSerialize};
+
+#[derive(BorshSerialize, BorshDeserialize, Debug)]
+pub struct State {
+    counter: u32
+}
+</code></pre>
+<p>Then we update our <code>process_instruction</code> in <code>main.rs</code>.
+The main difference from the <a href="counter//hello.html">Hello Solana Program</a> is we will use <code>program_id</code>, and <code>accounts</code> this time.</p>
+<pre><code class="language-rust  ignore">pub fn process_instruction(
+    program_id: &amp;Pubkey,
+    accounts: &amp;[AccountInfo],
+    _instruction_data: &amp;[u8], // still won't be used in this example
+) -&gt; entrypoint::ProgramResult {
+
+    // Iterating accounts is safer than indexing
+    let accounts_iter = &amp;mut accounts.iter();
+
+    // Get the counter account
+    let account = next_account_info(accounts_iter)?;
+
+    // The account must be owned by the program in order to modify its data
+    if account.owner != program_id {
+        return Err(ProgramError::IncorrectProgramId);
+    }
+
+    // Deserialize the state infomation from the account
+    let mut state = State::try_from_slice(&amp;account.data.borrow())?;
+
+    // Modify it
+    state.counter += 1;
+
+    // Then write it back
+    state.serialize(&amp;mut &amp;mut account.data.borrow_mut()[..])?;
+
+    Ok(())
+}
+</code></pre>
+<p>The logic is simple:</p>
+<ol>
+<li>Get the account</li>
+<li>Check the account is owned by the program</li>
+<li>Modify it and write it back</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="client-typescript-1"><a class="header" href="#client-typescript-1">Client (Typescript)</a></h1>
+<p>First, let's generate an address for our state account. This address is special compared to other anther accounts
+since it is a hash instead of a public key.</p>
+<pre><code class="language-javascript">const accountSeed = 'solana-by-example'; // can be any string
+
+const accountAddress = await PublicKey.createWithSeed(
+    payerKeypair.publicKey,
+    accountSeed,
+    programId,
+); // The result looks like a public key but is just a hash
+</code></pre>
+<p>Second, check if this accounts has already created on chain. If not, then send a transaction to System Program to create an account using the address we generated.</p>
+<pre><code class="language-javascript">var account = await connection.getAccountInfo(accountAddress);
+if (account === null) {
+
+    // The account only holds an u32 number so the size is 4 bytes
+    const constAccountSize = 4
+
+    // Count how much rent should be paid for this account
+    const rentFee = await connection.getMinimumBalanceForRentExemption(constAccountSize);
+
+    const transaction = new Transaction().add(
+        SystemProgram.createAccountWithSeed({
+        fromPubkey: payerKeypair.publicKey,
+        basePubkey: payerKeypair.publicKey,
+        seed: accountSeed, // &quot;solana-by-example&quot;
+        newAccountPubkey: accountAddress,
+        lamports: rentFee,
+        space: constAccountSize,
+        programId,
+        }),
+    );
+    await sendAndConfirmTransaction(connection, transaction, [payerKeypair]);
+}
+</code></pre>
+<p>Third, send another transaction to our Counter Program by passing the account we get at step 2. The Counter Program
+then should modify the data of the account.</p>
+<pre><code class="language-javascript">const stateAccount = {
+    pubkey: accountAddress,
+    isWritable: true,
+    isSigner: false
+}
+
+const instruction = new TransactionInstruction({
+    keys: [stateAccount],
+    programId,
+    data: Buffer.alloc(0), // instruction data won't be used by this example
+});
+
+await sendAndConfirmTransaction(
+    connection,
+    new Transaction().add(instruction),
+    [payerKeypair],
+);
+</code></pre>
+<p>Finally, query the account again to check if the data is updated.</p>
+<pre><code class="language-javascript">account = await connection.getAccountInfo(accountAddress);
+
+if (account === null) {
+    throw 'Error: cannot find the greeted account';
+}
+
+const StateAccountSchema = new Map([
+    [StateAccount, {kind: 'struct', fields: [['counter', 'u32']]}]
+]);
+
+const state = borsh.deserialize(
+    StateAccountSchema, 
+    StateAccount, // State class
+    account.data
+);
+
+console.log(
+    'Address:'
+    accountAddress.toBase58(),
+    'counter:',
+    state.counter
+);
+</code></pre>
+<p>add <code>State</code> class outside the <code>main</code> function. It is similar to the struct we did in <code>program.rs</code>:</p>
+<pre><code class="language-javascript">class StateAccount {
+    counter = 0;
+    constructor(fields: {counter: number} | undefined = undefined) {
+        if (fields) {
+            this.counter = fields.counter;
+        }
+    }
+}
+</code></pre>
+<p><a href="https://github.com/n795113/solana-by-example/tree/main/examples/counter/client_ts">Check out the full code</a></p>
+<h3 id="usage-2"><a class="header" href="#usage-2">Usage</a></h3>
+<pre><code class="language-shell">ts-node src/main.ts ../program/target/deploy/counter-keypair.json \
+~/.config/solana/id.json
+</code></pre>
+<p>The counter should increases 1 every time this client runs.</p>
+<p>This is the result that run the client 2 times:</p>
+<pre><code class="language-text">$ ts-node src/main.ts ../program/target/deploy/counter-keypair.json \
+~/.config/solana/id.json
+
+Payer:  46hytJBhguswo6S8fCcVtR85HEnb9nd1hwMxFWYnSHXc
+Program ID:  GuoMVjGXrxDvJaKuRfuKZsiwSHrfvfXg2YH7DTxGqdQe
+Creating account: CzZRqZHR4ZEcoyJs61WRFJZP2iX2siPHwVVMGwu3iFdt
+Sending the transaction to Counter Program...
+Address: CzZRqZHR4ZEcoyJs61WRFJZP2iX2siPHwVVMGwu3iFdt counter: 1
+Success
+$ ts-node src/main.ts ../program/target/deploy/counter-keypair.json \
+~/.config/solana/id.json
+
+Payer:  46hytJBhguswo6S8fCcVtR85HEnb9nd1hwMxFWYnSHXc
+Program ID:  GuoMVjGXrxDvJaKuRfuKZsiwSHrfvfXg2YH7DTxGqdQe
+Sending the transaction to Counter Program...
+Address: CzZRqZHR4ZEcoyJs61WRFJZP2iX2siPHwVVMGwu3iFdt counter: 2
+Success
+</code></pre>
+<p>We can see at the first time, the client create a new account, and its counter is 1.
+At the second time, since the account is already existed, the client doesn't create an account again. 
+It just take the existed account, and add its counter to 2.</p>
+<h3 id="activity"><a class="header" href="#activity">Activity</a></h3>
+<p>What will happen if the seed changes every time? (now it is hard coded as &quot;solana-by-example&quot;)</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="set-counter"><a class="header" href="#set-counter">Set Counter</a></h1>
+<p>This is an improved version of Counter example. Besides the increament instruction, we will add 2 more instructions: decreament, and set value!</p>
+<p>In this example, we will learn how to branch instructions after entering the endpoint of a program. 
+Still, we will implement this in vanilla Rust.</p>
+<p>This example was originally from Josh's <a href="https://www.youtube.com/watch?v=WXutkadkqkE&amp;t=3s">tutorial</a> from his <a href="https://www.youtube.com/c/JoshsDevBox">channel</a>. Please check out this amazing channel right now!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="instructions"><a class="header" href="#instructions">Instructions</a></h1>
+<p>First, let's declare our instructions by adding a new file, <code>instructions.rs</code>.</p>
+<p>Scaffolding:</p>
+<pre><code class="language-text">client_ts/
+├── src/
+│  ├── instructions.rs
+│  └── main.rs
+└── Cargo.toml
+</code></pre>
+<p>In <code>instructions.rs</code>:</p>
+<pre><code class="language-rust  ignore">#[derive(Debug)]
+pub Enum Instruction {
+    Increment,
+    Decrement,
+    SetValue(u32)
+}
+</code></pre>
+<p>If you are not familar with <code>Enum</code> in Rust, please check <a href="https://doc.rust-lang.org/book/ch06-01-defining-an-enum.html">this</a> out.</p>
+<p>Purpose: when an instruction data (<code>&amp;[u8]</code>) be passed into our program, we are gonna to resolve (unpack) it 
+into ethier above 3 instructions:</p>
+<ul>
+<li><code>Instruction::Increment</code>,</li>
+<li><code>Instruction::Decrement</code>,</li>
+<li><code>Instruction::SetValue(val)</code></li>
+</ul>
+<p>The program will then match the instruction to do different operations.</p>
+<h3 id="unpack"><a class="header" href="#unpack">Unpack</a></h3>
+<p>Let's implement a method for unpacking (or say deserializing) the given isntruction data.
+In this example, we gonna to use the first byte to represent the instruction code:</p>
+<ul>
+<li>0: Increment</li>
+<li>1: Decrement</li>
+<li>2: set value</li>
+</ul>
+<p>If the given code is 2 (set value), a user should also pass an u32 number in the other
+4 bytes after the first bytes which means the total length of the array should be 5.</p>
+<p>Moreover, there is no uniform rule about how to arrange the instruction data. 
+You can design your own patterns for specific purpoeses.</p>
+<pre><code class="language-rust  ignore">use solana_program::{program_error::ProgramError};
+
+impl Instruction {
+    pub unpack(input: &amp;[u8]) -&gt; Result&lt;Self, ProgramError&gt; {
+        let (&amp;ix_code, rest) = input.split_first().ok_or(ProgramError::InvalidInstructionData)?;
+
+        match ix {
+            0 =&gt; Ok(Instruction::Increment),
+            1 =&gt; Ok(Instruction::Decrement),
+            2 =&gt; {
+                // an u32 value should occupy 4 bytes
+                if rest.len() != 4 {
+                    return Err(ProgramError::InvalidInstructionData);
+                }
+                let val: Result&lt;[u8; 4], _&gt; = rest[..4].try_into();
+                match val {
+                    Ok(bytes) =&gt; Ok(Instruction::Set(u32::from_le_bytes(bytes))),
+                    _ =&gt; Err(ProgramError::InvalidInstructionData)
+                }
+            },
+            _ =&gt; Err(ProgramError::InvalidInstructionData)
+        }
+    }
+}
+</code></pre>
+<p><code>ix</code> often represents &quot;instruction&quot;, and <code>tx</code> represents &quot;transaction&quot;.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="program-3"><a class="header" href="#program-3">Program</a></h1>
+<p>Include <code>instractions</code> crate, and add the instruction branching after the account-owner-check:</p>
+<pre><code class="language-rust  ignore">pub mod instructions;
+use crate::instructions::Instruction;
+
+// ...
+
+let mut state = State::try_from_slice(&amp;account.data.borrow())?;
+let ix = Instruction::unpack(instruction_data)?;
+match ix {
+    Instruction::Increment =&gt; state.counter += 1,
+    Instruction::Decrement =&gt; state.counter -= 1,
+    Instruction::SetValue(val) =&gt; state.counter = val
+}
+state.serialize(&amp;mut &amp;mut account.data.borrow_mut()[..])?;
+</code></pre>
+<p>Don't forget to rename the variable name of instruction data</p>
+<pre><code class="language-rust  ignore">pub fn process_instruction(
+    program_id: &amp;Pubkey,
+    accounts: &amp;[AccountInfo],
+    instruction_data: &amp;[u8], // _instruction_data -&gt; instruction_data
+) -&gt; entrypoint::ProgramResult {
+    // ...
+}
+</code></pre>
+<p><a href="https://github.com/n795113/solana-by-example/tree/main/examples/set_counter/program">Check out the full code</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="client-typescript-2"><a class="header" href="#client-typescript-2">Client (Typescript)</a></h1>
+<p>The only difference from the last client example is that 
+we will send a non-empty array of instruction data this time.</p>
+<p>Recap our instruction codes:</p>
+<ul>
+<li>0: increment</li>
+<li>1: decrement</li>
+<li>2: set value</li>
+</ul>
+<p>If the given code is 2 (set value), a user should also pass an u32 number in the other
+4 bytes after the first bytes which means the total length of the array should be 5.</p>
+<p>Here is an example how to make the array:</p>
+<pre><code class="language-javascript">var instructionData = Buffer.alloc(5, 0); // [0, 0, 0, 0, 0]
+
+// The first byte is instruction code
+instructionData.writeUint8(instructionCode, 0);
+
+// The last 4 bytes reoresents an u32 value we want to set
+instructionData.writeUInt32LE(inputValue, 1);
+</code></pre>
+<p>Our program will ignore the last 4 bytes if instruction code is 0 or 1 so I just alloc 5 bytes
+for every cases. You can alloc only 1 byte on cases <code>increment</code>, and <code>decrement</code> of course. The 
+program should works the same.</p>
+<p>A user should pass the instruction and value if the instruction is &quot;set value&quot;. 
+Let's modify the arguments handling at the begining of the <code>main</code>.</p>
+<pre><code class="language-javascript">const args = process.argv.slice(2);
+if (args.length &lt; 3) {
+    console.log(&quot;Uasge: &lt;instruction code&gt; [value] &lt;program keypair path&gt; &lt;payer keypair path&gt;&quot;);
+    process.exit(1);
+}
+const instruct = args[0];
+var instructionCode = 0;
+var inputValue = 0;
+switch (instruct) {
+    case &quot;increment&quot;: 
+        instructionCode = 0;
+        break;
+    case &quot;decrement&quot;:
+        instructionCode = 1;
+        break;
+    case &quot;set&quot;:
+        instructionCode = 2;
+        inputValue = parseInt(args[1]);
+        break;
+}
+const program_keypair_path = (instruct === &quot;set&quot;) ? args[2] : args[1];
+const payer_keypair_path = (instruct === &quot;set&quot;) ? args[3] : args[2];
+</code></pre>
+<p>Just a simple example without invalid arguement handling. You can do better than this one.</p>
+<p><a href="https://github.com/n795113/solana-by-example/tree/main/examples/set_counter/client_ts">Check out the full code</a></p>
+<h3 id="usage-3"><a class="header" href="#usage-3">Usage</a></h3>
+<p>Let's set the counter to some value, then play with the <code>increment</code>, and <code>decrement</code> to check if
+they work properly. Finally, we set the counter again to check <code>set value</code> truely works.</p>
+<pre><code class="language-text">
+$ ts-node src/main.ts set 100 ../program/target/deploy/setcounter-keypair.json ~/.config/solana/id.json
+Payer:  46hytJBhguswo6S8fCcVtR85HEnb9nd1hwMxFWYnSHXc
+Program ID:  5RKoJE1ZwEnvGjhMG9mLgz8ARFEqHV6JfectxedmM7Rg
+Sending the transaction...
+Address: H1JS1dZ4do8t71XUs5g3eVjcNYLdgZhzFqiHASSPC5CE counter: 100
+Success
+$ ts-node src/main.ts increment ../program/target/deploy/setcounter-keypair.json ~/.config/solana/id.json
+Payer:  46hytJBhguswo6S8fCcVtR85HEnb9nd1hwMxFWYnSHXc
+Program ID:  5RKoJE1ZwEnvGjhMG9mLgz8ARFEqHV6JfectxedmM7Rg
+Sending the transaction...
+Address: H1JS1dZ4do8t71XUs5g3eVjcNYLdgZhzFqiHASSPC5CE counter: 101
+Success
+$ ts-node src/main.ts decrement ../program/target/deploy/setcounter-keypair.json ~/.config/solana/id.json
+Payer:  46hytJBhguswo6S8fCcVtR85HEnb9nd1hwMxFWYnSHXc
+Program ID:  5RKoJE1ZwEnvGjhMG9mLgz8ARFEqHV6JfectxedmM7Rg
+Sending the transaction...
+Address: H1JS1dZ4do8t71XUs5g3eVjcNYLdgZhzFqiHASSPC5CE counter: 100
+Success
+$ ts-node src/main.ts set 1234 ../program/target/deploy/setcounter-keypair.json ~/.config/solana/id.json  
+Payer:  46hytJBhguswo6S8fCcVtR85HEnb9nd1hwMxFWYnSHXc
+Program ID:  5RKoJE1ZwEnvGjhMG9mLgz8ARFEqHV6JfectxedmM7Rg
+Sending the transaction...
+Address: H1JS1dZ4do8t71XUs5g3eVjcNYLdgZhzFqiHASSPC5CE counter: 1234
+Success
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="anchor"><a class="header" href="#anchor">Anchor</a></h1>
+<p>In this example, we will rewrite the Set Counter Program with Anchor.</p>
+<h3 id="what-is-anchor"><a class="header" href="#what-is-anchor">What is Anchor</a></h3>
+<p>Anchor is a framework for Solana Program development like Laravel, or Rails.</p>
+<h3 id="why-anchor"><a class="header" href="#why-anchor">Why Anchor</a></h3>
+<p>It makes things easier</p>
+<ul>
+<li>It handles serialization and deserialization for you</li>
+<li>It simplifies the develop flow, we can develop and test a program easily</li>
+<li>It improves the security for you program by default</li>
+</ul>
+<h3 id="installation"><a class="header" href="#installation">Installation</a></h3>
+<p><a href="https://project-serum.github.io/anchor/getting-started/installation.html">Follow the offical doc</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="init-project"><a class="header" href="#init-project">Init Project</a></h1>
+<p>First, let's create a new Anchor project:</p>
+<pre><code class="language-shell">anchor init set_counter_anchor
+</code></pre>
+<p><code>cd</code> the project then run the test:</p>
+<pre><code class="language-shell">cd set_counter_anchor
+anchor test
+</code></pre>
+<p>This command will build, deploy the program, then run the test code!
+Pretty handy, right?</p>
+<p>You should see something like below which means all works.</p>
+<pre><code class="language-text">  set_counter_anchor
+Your transaction signature 38P7FC6rNP95RGwQRmYrGZYpsS22KgA6KLk9tMzhuD6U3z324J2xSjiScLtTrSqkNCpt9D5MaCWKrJEBVdydcz2F
+    ✔ Is initialized! (322ms)
+
+
+  1 passing (330ms)
+
+✨  Done in 7.38s.
+</code></pre>
+<h3 id="program-4"><a class="header" href="#program-4">Program</a></h3>
+<p>Let's take a look to <code>programs/set_counter_anchor/src/lib.rs</code>.
+Here is where the program logic lives.</p>
+<pre><code class="language-rust  ignore">use anchor_lang::prelude::*;
+
+declare_id!(&quot;Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS&quot;);
+
+#[program]
+pub mod new_anchor_project {
+    use super::*;
+
+    pub fn initialize(ctx: Context&lt;Initialize&gt;) -&gt; Result&lt;()&gt; {
+        Ok(())
+    }
+}
+
+#[derive(Accounts)]
+pub struct Initialize {}
+</code></pre>
+<p><code>Context</code> is mapped to the accounts we pass to a program.</p>
+<p><code>initialize()</code> is an instruction of this program. We can have several instructions in one program, 
+just like we do in Set Counter example. Different instruction may require different accounts to be passed to it 
+so we can define the schema of the accounts using a struct with <code>#[derive(Accounts)]</code>.</p>
+<h3 id="test"><a class="header" href="#test">Test</a></h3>
+<p>Another reason to use Anchor is it set up the test stuffs for you.
+In <code>tests/set_counter_anchor.ts</code>, we can see the example test.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="implement-set-counter-logic"><a class="header" href="#implement-set-counter-logic">Implement Set Counter Logic</a></h1>
+<h3 id="define-state-account"><a class="header" href="#define-state-account">Define State Account</a></h3>
+<p>In the previous example, we create the state account at the client side. 
+However, in this implementation, we will move this process to the program 
+so we add anothor instrucion called <code>initialize</code>. The responsibility of this
+instruction is to create a state account and set its counter to default, which is 0.</p>
+<p>Let's define the state account schema.</p>
+<pre><code class="language-rust  ignore">// This is how we define an account with Anchor
+#[account]
+pub struct State {
+    counter: u32
+}
+</code></pre>
+<p>You can find the only difference from the vanilla Rust code is the attribute</p>
+<pre><code class="language-rust  ignore">// Original way in vanilla Rust
+#[derive(BorshSerialize, BorshDeserialize, Debug)]
+pub struct State {
+    counter: u32
+}
+</code></pre>
+<h3 id="define-instructions--argument-accounts"><a class="header" href="#define-instructions--argument-accounts">Define Instructions &amp; Argument Accounts</a></h3>
+<p>Use <code>#[derive(accounts)]</code> attribute to define agrument accounts. By doing so, we define 
+what accounts should we pass to an instruction. Then at each instruction, we define its argument accounts 
+by wrapping the struct with <code>Context</code>.</p>
+<p>There are two types of accounts in this example. For the instructions, setting value, increment, and decrement, 
+we only need to pass the state account so they share one struct called <code>Update</code>. On the other hand, For 
+initialization, we also need to pass the payer and the system program ID to out program so we define another
+struct called <code>Initialize</code>. Let's see the code.</p>
+<pre><code class="language-rust  ignore">#[program]
+pub mod set_counter_anchor {
+    use super::*;
+
+    pub fn initialize(ctx: Context&lt;Initialize&gt;) -&gt; Result&lt;()&gt; {
+        Ok(())
+    }
+
+    pub fn decrement(ctx: Context&lt;Update&gt;) -&gt; Result&lt;()&gt; {
+        Ok(())
+    }
+
+    pub fn increment(ctx: Context&lt;Update&gt;) -&gt; Result&lt;()&gt; {
+        Ok(())
+    }
+
+    pub fn set(ctx: Context&lt;Update&gt;, value: u32) -&gt; Result&lt;()&gt; {
+        Ok(())
+    }
+}
+
+#[derive(Accounts)]
+pub struct Initialize&lt;'info&gt; {
+    #[account(init, payer = user, space = 8 + 4)]
+    pub state: Account&lt;'info, State&gt;,
+    #[account(mut)]
+    pub user: Signer&lt;'info&gt;,
+    pub system_program: Program&lt;'info, System&gt;
+}
+
+#[derive(Accounts)]
+pub struct Update&lt;'info&gt; {
+    #[account(mut)]
+    pub state: Account&lt;'info, State&gt;
+}
+</code></pre>
+<h3 id="fill-the-logic"><a class="header" href="#fill-the-logic">Fill the logic</a></h3>
+<p>The struct is done. The rest task is to fill the logic:</p>
+<pre><code class="language-rust  ignore">#[program]
+pub mod set_counter_anchor {
+    use super::*;
+
+    pub fn initialize(ctx: Context&lt;Initialize&gt;) -&gt; Result&lt;()&gt; {
+        let state = &amp;mut ctx.accounts.state;
+        state.counter = 0; // init the counter
+        Ok(())
+    }
+
+    pub fn decrement(ctx: Context&lt;Update&gt;) -&gt; Result&lt;()&gt; {
+        let state = &amp;mut ctx.accounts.state;
+        state.counter = state.counter.checked_sub(1).unwrap_or(0); // avoid overflow
+        Ok(())
+    }
+
+    pub fn increment(ctx: Context&lt;Update&gt;) -&gt; Result&lt;()&gt; {
+        let state = &amp;mut ctx.accounts.state;
+        state.counter = state.counter.checked_add(1).unwrap_or(u32::MAX); // avoid overflow
+        Ok(())
+    }
+
+    pub fn set(ctx: Context&lt;Update&gt;, value: u32) -&gt; Result&lt;()&gt; {
+        let state = &amp;mut ctx.accounts.state;
+        state.counter = value;
+        Ok(())
+    }
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="test-1"><a class="header" href="#test-1">Test</a></h1>
+<p>It's pretty straightforward. 
+Here is the full test code:</p>
+<pre><code class="language-javascript">import * as anchor from &quot;@project-serum/anchor&quot;;
+import { Program } from &quot;@project-serum/anchor&quot;;
+import { assert } from &quot;chai&quot;;
+import { SetCounterAnchor } from &quot;../target/types/set_counter_anchor&quot;;
+
+describe(&quot;set_counter_anchor&quot;, () =&gt; {
+  // Configure the client to use the local cluster.
+  anchor.setProvider(anchor.AnchorProvider.env());
+
+  const program = anchor.workspace.SetCounterAnchor as Program&lt;SetCounterAnchor&gt;;
+
+  const stateAccount = anchor.web3.Keypair.generate();
+
+  const setValue = 123; // can be any u32 number
+
+  it(&quot;Is initialized!&quot;, async () =&gt; {
+    const tx = await program.rpc.initialize({
+      accounts: {
+        state: stateAccount.publicKey,
+        user: program.provider.wallet.publicKey,
+        systemProgram: anchor.web3.SystemProgram.programId
+      },
+      signers: [stateAccount],
+    });
+
+    const state = await program.account.stateAccount.fetch(stateAccount.publicKey);
+    // check the state account is correctly be inited
+    assert.equal(state.counter, 0);
+  });
+
+  it(&quot;set value&quot;, async () =&gt; {
+    await program.rpc.set(new anchor.BN(setValue), {
+      accounts: {
+        state: stateAccount.publicKey
+      }
+    });
+
+    const state = await program.account.stateAccount.fetch(stateAccount.publicKey);
+    assert.equal(state.counter, setValue);
+  });
+
+  it(&quot;increment&quot;, async () =&gt; {
+    await program.rpc.increment({
+      accounts: {
+        state: stateAccount.publicKey
+      }
+    });
+
+    const state = await program.account.stateAccount.fetch(stateAccount.publicKey);
+    assert.equal(state.counter, setValue + 1);
+  });
+
+  it(&quot;decrement&quot;, async () =&gt; {
+    await program.rpc.decrement({
+      accounts: {
+        state: stateAccount.publicKey
+      }
+    });
+
+    const state = await program.account.stateAccount.fetch(stateAccount.publicKey);
+    assert.equal(state.counter, setValue);
+  });
+});
+</code></pre>
+<p>Run the test:</p>
+<pre><code class="language-shell">anchor test
+</code></pre>
+<p>You can memerize the syntax that how to send a transaction and fetch an account with Anchor.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="integrate-with-wallet-adaptor"><a class="header" href="#integrate-with-wallet-adaptor">Integrate With Wallet Adaptor</a></h1>
+<p>Create a web app with React to interact with out program.</p>
+<h3 id="program-side"><a class="header" href="#program-side">Program side</a></h3>
+<ol>
+<li>Get the program ID and paste it to the program source code.
+<pre><code class="language-sh"># get the program ID
+solana address -k &lt;project_path/target/deploy/project_name-keypair.json&gt;
+</code></pre>
+Edit <code>lib.rs</code>
+<pre><code class="language-rust  ignore">declare_id!(&quot;PROGRAM ID&quot;);
+</code></pre>
+</li>
+<li>Build &amp; deploy our program.
+<pre><code class="language-sh">anchor build
+# remember to run local test validators before deploy
+anchor deploy
+</code></pre>
+</li>
+</ol>
+<h3 id="frontend-side"><a class="header" href="#frontend-side">Frontend side</a></h3>
+<ol>
+<li>
+<p>Clone the frontend starter repo.</p>
+<p>Use this <a href="https://github.com/solana-labs/wallet-adapter/tree/master/packages/starter/react-ui-starter">repo (react-ui-starter)</a> as the starter</p>
+</li>
+<li>
+<p>Implement the wallet connection.</p>
+</li>
+<li>
+<p>Make buttons for each instruction.</p>
+</li>
+</ol>
+<p>The full code of <code>App.tsx</code> is like below. Just a quick demo so please ignore the poor design...</p>
+<p>Also, you can check out the full project <a href="https://github.com/n795113/solana-counter-with-anchor">here</a>.</p>
+<pre><code class="language-javascript">import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import { ConnectionProvider, useAnchorWallet, WalletProvider } from '@solana/wallet-adapter-react';
+import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import {
+    GlowWalletAdapter,
+    PhantomWalletAdapter,
+    SlopeWalletAdapter,
+    SolflareWalletAdapter,
+    TorusWalletAdapter,
+} from '@solana/wallet-adapter-wallets';
+import { clusterApiUrl, Connection } from '@solana/web3.js';
+import React, { FC, ReactNode, useMemo, useState, useRef } from 'react';
+import idl from '../../target/idl/set_counter_anchor.json';
+import { Program, BN, Provider, web3 } from &quot;@project-serum/anchor&quot;;
+
+const stateAccount = web3.Keypair.generate();
+
+export const App: FC = () =&gt; {
+    return (
+        &lt;Context&gt;
+            &lt;Content /&gt;
+        &lt;/Context&gt;
+    );
+};
+
+const Context: FC&lt;{ children: ReactNode }&gt; = ({ children }) =&gt; {
+    // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
+    const network = WalletAdapterNetwork.Devnet;
+
+    // You can also provide a custom RPC endpoint.
+    const endpoint = useMemo(() =&gt; clusterApiUrl(network), [network]);
+
+    // @solana/wallet-adapter-wallets includes all the adapters but supports tree shaking and lazy loading --
+    // Only the wallets you configure here will be compiled into your application, and only the dependencies
+    // of wallets that your users connect to will be loaded.
+    const wallets = useMemo(
+        () =&gt; [
+            new PhantomWalletAdapter(),
+            new GlowWalletAdapter(),
+            new SlopeWalletAdapter(),
+            new SolflareWalletAdapter({ network }),
+            new TorusWalletAdapter(),
+        ],
+        [network]
+    );
+
+    return (
+        &lt;ConnectionProvider endpoint={endpoint}&gt;
+            &lt;WalletProvider wallets={wallets} autoConnect&gt;
+                &lt;WalletModalProvider&gt;{children}&lt;/WalletModalProvider&gt;
+            &lt;/WalletProvider&gt;
+        &lt;/ConnectionProvider&gt;
+    );
+};
+
+const Content: FC = () =&gt; {
+    const [counter, setCounter] = useState(0);
+    const inputRef = useRef&lt;HTMLInputElement&gt;(null);
+    const wallet = useAnchorWallet();
+
+    // Establish the connection
+    if (!wallet) {
+        return null;
+    }
+    const network = &quot;http://127.0.0.1:8899&quot;;
+    const connection = new Connection(network, &quot;processed&quot;);
+
+    const provider = new Provider(
+        connection, wallet, {&quot;preflightCommitment&quot;: &quot;processed&quot;},
+    );
+
+    if (!provider) {
+        throw(&quot;Provider is null&quot;);
+    }
+    const a = JSON.stringify(idl);
+    const b = JSON.parse(a);
+    const program = new Program(b, idl.metadata.address, provider);
+    
+    // Functions to interact with the counter program
+    async function initialize() {
+        try {
+            await program.rpc.initialize({
+                accounts: {
+                  state: stateAccount.publicKey,
+                  user: program.provider.wallet.publicKey,
+                  systemProgram: web3.SystemProgram.programId
+                },
+                signers: [stateAccount],
+            });
+
+            const state = await program.account.state.fetch(stateAccount.publicKey);
+            console.log(&quot;counter: &quot;, state.counter);
+            setCounter(state.counter);
+        } catch (err) {
+            console.log(&quot;tx err: &quot;, err);
+        }
+    }
+
+    async function increment() {
+        try {
+            await program.rpc.increment({
+                accounts: {
+                  state: stateAccount.publicKey,
+                },
+            });
+
+            const state = await program.account.state.fetch(stateAccount.publicKey);
+            console.log(&quot;counter: &quot;, state.counter);
+            setCounter(state.counter);
+        } catch (err) {
+            console.log(&quot;tx err: &quot;, err);
+        }
+    }
+
+    async function decrement() {
+        try {
+            await program.rpc.decrement({
+                accounts: {
+                  state: stateAccount.publicKey,
+                },
+            });
+
+            const state = await program.account.state.fetch(stateAccount.publicKey);
+            console.log(&quot;counter: &quot;, state.counter);
+            setCounter(state.counter);
+        } catch (err) {
+            console.log(&quot;tx err: &quot;, err);
+        }
+    }
+    async function set() {
+        try {
+            if (inputRef.current == undefined) {
+                throw(&quot;Invalid number&quot;);
+            }
+            const value = parseInt(inputRef.current.value);
+            console.log(&quot;receive value:&quot;, value);
+            await program.rpc.set(new BN(value), {
+                accounts: {
+                  state: stateAccount.publicKey,
+                },
+            });
+
+            const state = await program.account.state.fetch(stateAccount.publicKey);
+            console.log(&quot;counter: &quot;, state.counter);
+            setCounter(state.counter);
+        } catch (err) {
+            console.log(&quot;tx err: &quot;, err);
+        }
+    }
+    return (
+        &lt;&gt;
+            &lt;WalletMultiButton /&gt;
+            &lt;button onClick={initialize}&gt;Initialize&lt;/button&gt;
+            &lt;button onClick={decrement}&gt;Decrement&lt;/button&gt;
+            &lt;button onClick={increment}&gt;Increment&lt;/button&gt;
+            &lt;button onClick={set}&gt;Set&lt;/button&gt;
+            &lt;input ref={inputRef} type=&quot;number&quot;/&gt;
+            &lt;div&gt;Counter: {counter}&lt;/div&gt;
+        &lt;/&gt;
+    );
+};
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+    </body>
+</html>
