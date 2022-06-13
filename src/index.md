@@ -12,12 +12,13 @@ Now let's begin!
 
 - [Set Counter](set_counter.md) - Multiple instructions in one program.
 
-- [Blog](blog.md) - Learn about how to store text on Solana.
-
-- [Chat Room](chat_room.md) - build a chat room on Solana.
-
-- [Swap Program](swap.md) - Learn about SPL token, and associated account.
-
-- [NFT Program](nft.md) - Learn about how to create and manage metadata of NFTs.
-
 - [Anchor](anchor.md)
+
+- [WIP Blog](blog.md) - Learn about how to store text on Solana.
+
+- [WIP Chat Room](chat_room.md) - build a chat room on Solana.
+
+- [WIP Swap Program](swap.md) - Learn about SPL token, and associated account.
+
+- [WIP NFT Program](nft.md) - Learn about how to create and manage metadata of NFTs.
+
